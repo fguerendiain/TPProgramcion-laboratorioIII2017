@@ -1,0 +1,21 @@
+{
+  "name": "TPProgramcion-laboratorioIII2017",
+  "homepage": "https://github.com/fguerendiain/TPProgramcion-laboratorioIII2017",
+  "authors": [
+    "Franco Guerendiain <fguerendiain@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrapvalidator": "^0.5.3"
+  }
+}

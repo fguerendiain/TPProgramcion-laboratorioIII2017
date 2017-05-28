@@ -1,0 +1,146 @@
+/*-----------------PANEL LATERAL IZQUIERDO---------------------------*/
+
+
+.userInfoBox{
+    height: auto;
+    padding: 20px;
+    margin: 10px;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    background-color: #CCCCFF;
+
+}
+
+ .imgParkHourLogo{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+ }
+ 
+ .userLoginInfo{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    vertical-align: middle;
+
+ }
+       
+
+.btnCerrarsesion{
+    padding: 15px;
+    margin: 10px;
+
+}
+
+/*----------------------------------------------------------------*/
+
+
+
+
+
+/*---------------------PANEL CENTRAL----------------------*/
+
+
+.inOutBoxes{
+    height: auto;
+    padding: 5px;
+}
+
+.incomingBox{
+    padding: 15px;
+    margin: 5px;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    background-color:#EEEEEE;
+
+}
+
+
+.outgoingBox{
+    padding: 15px;
+    margin: 5px;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    background-color: #EEEEEE;
+}
+
+.datosVehiculo{
+    height: 100px;
+    padding: 15px;
+    margin: 5px;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    background-color: #CCCCFF;
+}
+
+.btnCalcular{
+    padding: 5px;
+    margin: 5px;
+}
+
+.importeAPagar{
+    height: 80px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    background-color: #000000;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 400%;
+}
+
+/*----------------------------------------------------------------*/
+
+
+/*-----------------PANEL LATERAL DERECHO---------------------------*/
+
+.sidenav {
+    height: auto;
+    padding: 15px;
+    }
+
+
+.vehicleTableTitle{
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.sidebarTable{
+    height: 550px;
+    overflow: auto;
+    padding: 15px;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+}
+
+
+/*----------------------------------------------------------------*/
+
+/*-----------------FOOTTER---------------------------*/
+
+footer {
+    background-color: #555;
+    color: white;
+    padding: 15px;
+}
+
+
+/*----------------------------------------------------------------*/
