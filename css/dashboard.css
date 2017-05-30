@@ -1,3 +1,8 @@
+body{
+    background-color: #222222;
+}
+
+
 /*-----------------PANEL LATERAL IZQUIERDO---------------------------*/
 
 
@@ -129,6 +134,7 @@
     border-style: solid;
     border-color: black;
     border-radius: 5px;
+    background-color: #FFFFFF;
 }
 
 
