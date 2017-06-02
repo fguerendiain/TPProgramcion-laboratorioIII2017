@@ -1,0 +1,36 @@
+TABLAS BASE DE DATOS
+
+
+create table usuarios{
+    id INT AI,
+    legajo INT,
+    nombre VARCHAR(50),
+    fechalogin DATE,
+    categoria ENUM ['cajero','admin'],
+    suspendido BOOLEAN,
+    activo BOOLEAN,
+    PRIMARY KEY (id)
+}
+
+create table cocheras{
+    id INT AI,
+    numero INT /*100 - 200 - 300*/
+    discapacitados BOOLEAN,
+    uso INT AI, /* contador por uso */
+    PRIMARY KEY(ID)
+
+}
+
+create table movimientos{
+    id INT AI,
+    patente VARCHAR(15),
+    marca VARCHAR(20),
+    idusuario INT,
+    idcochera INT,
+    ingresofechahora DATE,
+    egresofechahora DATE,
+    total FLOAT,
+    PRIMARY KEY(id),
+    FOREIGN KEY(idusuario),
+    FOREIGN KEY(idcochera)
+}
