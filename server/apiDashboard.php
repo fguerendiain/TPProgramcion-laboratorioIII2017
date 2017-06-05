@@ -12,7 +12,9 @@ require 'funcDashboard.php';
 
     //Traer listado de ptentes de vehiculos en playa y su n° de cochera
     $app->get('/dashboard/vehiculosenplaya', function (Request $request, Response $response) {
-        $response->getBody()->write(VehiculosEnPlaya());
+        $response->getBody()->write('HOLA');
+
+//        $response->getBody()->write(VehiculosEnPlaya());
         return $response;
     });
 
@@ -37,8 +39,6 @@ require 'funcDashboard.php';
 
         return $response;
     });
-
-
 
     //elimina datos de vehiculo de la base
     $app->get('/dashboard/salidavehiculo', function (Request $request, Response $response) {

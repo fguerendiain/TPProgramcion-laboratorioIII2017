@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/dashboardAjax.js"></script>
 
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -26,45 +28,42 @@
                     DATOS DEL USUARIO LOGUEADO
                 </div>
 
-                <button class= "btn btn-info btn-block">PANEL DE CONTROL</button>
+                <button class= "btn btn-info btn-block" id="btnControlPanel">PANEL DE CONTROL</button>
             </div>
-            <button class= "btn btn-danger btnCerrarsesion">Cerrar Sesion</button>
+            <button class= "btn btn-danger btnCerrarsesion" id="btnLogout">Cerrar Sesion</button>
         </div>
 
 
         <div class="col-sm-6">
             <div class="inOutBoxes">
                 <div class="incomingBox">
-                    <form class="form">
-                        <div class="form-inline">
+                    <form class="form" action="#" method="post" id="formVehicleIn">
+                        <div class="form-inline" "form-group">
                             <label >Patente</label><br>
-                            <input class = "form-control" type="radio" name="patenteselector" value="patentenacional" checked> Nacional
-                            <input class = "form-control" type="text">
-                            <input class = "form-control" type="radio" name="patenteselector" value="patenteextrangera"> Extrangera
-                            <input class = "form-control" type="text">
+                            <input class = "form-control" type="radio" id="patenteselectorNac"  name="patenteselector" value="patentenacional" checked> Nacional
+                            <input class = "form-control" name="txtPatenteNacVehicleIn" type="text">
+                            <input class = "form-control" type="radio" id="patenteselectorExt" name="patenteselector" value="patenteextrangera"> Extrangera
+                            <input class = "form-control" name="txtPatenteExtVehicleIn" type="text" disabled="true">
                        </div>
                         <div class="form-group">
                             <label>Color</label>
-                            <input class = "form-control" type="text">
+                            <input class = "form-control" name="txtColorVehicleIn" type="text">
                        </div>
                         <div class="form-group">
                             <label>Marca</label>
-                            <input class = "form-control" type="text">
+                            <input class = "form-control" name="txtMarcaVehicleIn" type="text">
                        </div>
                         <div class="form-group">
-                            <button class= "btn btn-success btn-block">INGRESO</button>
+                            <button class= "btn btn-success btn-block" id="btnVehicleIn" disabled="true">INGRESO</button>
                        </div>
                     </form>
                 </div>
 
                 <div class="outgoingBox">
 
-                    <div class="datosVehiculo">
-                        <p>muestro datos del vehiculo</p>
-                    </div>
-
+                    <div class="datosVehiculo"><!--MUESTRO DATOS DEL VEHICULO--></div>
                     <div class ="btnCalcular col-sm-5 ">
-                        <button class= "btn btn-warning btn-block">CALCULAR</button>
+                        <button class= "btn btn-warning btn-block" id="btnVehicleCalc">CALCULAR</button>
                     </div>
 
                     <div class="importeAPagar col-sm-5">
@@ -72,7 +71,7 @@
                     </div>
 
                     <div>
-                        <button class= "btn btn-danger btn-block">SALIDA</button>
+                        <button class= "btn btn-danger btn-block" id="btnVehicleOut" disabled="true">SALIDA</button>
                     </div>
 
                 </div>
@@ -82,68 +81,7 @@
       <div class="col-sm-3 sidenav">
             <div class="sidebarTable">
                 <div class="vehicleTableTitle"><h4>Vehiculos en playa</h4></div>
-                <table class="table table-striped">
-                    <tr>
-                        <th>PATENTE</th>
-                        <th>COCHERA</th>
-                    </tr>
-                    <tr>
-                        <td>DPX769</td>
-                        <td>105</td> 
-                    </tr>
-                    <tr>
-                        <td>BNQ723</td>
-                        <td>211</td> 
-                    </tr>
-                    <tr>
-                        <td>DPX769</td>
-                        <td>105</td> 
-                    </tr>
-                    <tr>
-                        <td>BNQ723</td>
-                        <td>211</td> 
-                    </tr>
-                    <tr>
-                        <td>DPX769</td>
-                        <td>105</td> 
-                    </tr>
-                    <tr>
-                        <td>BNQ723</td>
-                        <td>211</td> 
-                    </tr>
-                    <tr>
-                        <td>DPX769</td>
-                        <td>105</td> 
-                    </tr>
-                    <tr>
-                        <td>BNQ723</td>
-                        <td>211</td> 
-                    </tr>
-                    <tr>
-                        <td>DPX769</td>
-                        <td>105</td> 
-                    </tr>
-                    <tr>
-                        <td>BNQ723</td>
-                        <td>211</td> 
-                    </tr>
-                    <tr>
-                        <td>DPX769</td>
-                        <td>105</td> 
-                    </tr>
-                    <tr>
-                        <td>BNQ723</td>
-                        <td>211</td> 
-                    </tr>
-                    <tr>
-                        <td>DPX769</td>
-                        <td>105</td> 
-                    </tr>
-                    <tr>
-                        <td>BNQ723</td>
-                        <td>211</td> 
-                    </tr>
-                </table>
+                <div class="vehicleDinamicTable"><!--SE GENERA LA TABLA EN FORMA DINAMICA--></div>
             </div>
         </div>
    

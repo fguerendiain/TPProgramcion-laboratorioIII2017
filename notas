@@ -1,28 +1,28 @@
 TABLAS BASE DE DATOS
 
 
-create table usuarios{
-    id INT AI,
+create table usuarios(
+    id INT NOT NULL AUTO_INCREMENT,
     legajo INT,
     nombre VARCHAR(50),
     fechalogin DATE,
-    categoria ENUM ['cajero','admin'],
-    suspendido BOOLEAN,
-    activo BOOLEAN,
+    categoria ENUM('cajero','admin') not null default 'cajero',
+    suspendido BOOLEAN default false, 
+    activo BOOLEAN default true,
     PRIMARY KEY (id)
-}
+)
 
-create table cocheras{
-    id INT AI,
+create table cocheras(
+    id INT NOT NULL  AUTO_INCREMENT,
     numero INT /*100 - 200 - 300*/
     discapacitados BOOLEAN,
-    uso INT AI, /* contador por uso */
+    uso INT default 0, /* contador por uso */
     PRIMARY KEY(ID)
 
-}
+)
 
-create table movimientos{
-    id INT AI,
+create table movimientos(
+    id INT NOT NULL AUTO_INCREMENT,
     patente VARCHAR(15),
     marca VARCHAR(20),
     idusuario INT,
@@ -33,4 +33,65 @@ create table movimientos{
     PRIMARY KEY(id),
     FOREIGN KEY(idusuario),
     FOREIGN KEY(idcochera)
-}
+)
+
+
+
+------------------------------------------------------------------
+CARGAR COCHERAS
+
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (100,true,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (101,true,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (102,true,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (103,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (104,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (105,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (106,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (107,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (108,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (109,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (200,true,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (201,true,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (202,true,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (203,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (204,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (205,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (206,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (207,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (208,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (209,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (300,true,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (301,true,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (302,true,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (303,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (304,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (305,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (306,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (307,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (308,false,0);
+INSERT INTO `cocheras`(`numero`, `discapacitados`, `uso`) VALUES (309,false,0);
+
+--------------------------------------------------------------------------------------------------
+CARGAR MOVIMIENTOS
+
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('DPX769','Renault',1,7);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('BNQ723','Renault',1,4);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('OYA833','Ford',1,1);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('QWE325','Maclaren',1,8);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('RTY291','Mazda',1,5);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('YUI821','Fiat',1,2);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('SDF179','Ferrary',1,9);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('FGH397','LandRover',1,6);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('GHJ369','RollsRoys',1,3);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('HJK258','Peugueot',1,11);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('ZXC147','Citroen',1,21);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('XCV741','Kia',1,15);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('CVB852','Mazda',1,17);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('VBN963','Renault',1,18);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('BNM789','Peugueot',1,19);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('AJF456','VolksWaguen',1,14);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('GFA123','Renault',1,16);
+INSERT INTO `movimientos`(`patente`, `marca`, `idusuario`, `idcochera`) VALUES ('JLY228','Ford',1,13);
+
+
+-----------------------------------------------------------------------------------------------------
