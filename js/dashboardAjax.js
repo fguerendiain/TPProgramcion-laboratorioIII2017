@@ -6,7 +6,7 @@
 function traerVehiculosEnPlaya(){
 
   $.ajax({
-      url:'/dashboard/vehiculosenplaya',
+      url:'http://localhost:8080/TPProgramcion-laboratorioIII2017/server/dashboard/vehiculosenplaya',
       type:'GET'
   })
   .done(function(data){

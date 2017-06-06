@@ -6,7 +6,7 @@ class DataBaseMan
 	private function __construct()
 	{
 		try {
-			$this->_objetoPDO = new PDO('mysql:host=localhost;dbname=parkhour;charset=utf8', 'root', 'root', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+			$this->_objetoPDO = new PDO('mysql:host=localhost;dbname=parkhour;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 			$this->_objetoPDO->exec("SET CHARACTER SET utf8");
 
 		} catch (PDOException $e) {
@@ -27,7 +27,7 @@ class DataBaseMan
 	public static function Connect()//singleton
 	{
 		if (!isset(self::$_objetoDataBase)) {       
-			self::$_objetoDataBase = new DataBase(); 
+			self::$_objetoDataBase = new DataBaseMan(); 
 		}	return self::$_objetoDataBase;        
 	}
 

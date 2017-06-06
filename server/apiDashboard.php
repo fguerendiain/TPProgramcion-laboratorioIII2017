@@ -9,12 +9,22 @@ require 'funcDashboard.php';
 
     $app = new \Slim\App;
 
+    //CONFIGURACION DE CORS PARA LA API
+    $app->add(function($req, $res, $next){
+        $response = $next($req, $res);
+        return $response
+                ->withHeader('Access-Control-Allow-Origin','*')
+                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type. Accept, Origin, Authorization')
+                ->withHeader('Access-Control-Allow-Methods','GET, POST, PUT, DELETE, OPTIONS');
+    });
+
 
     //Traer listado de ptentes de vehiculos en playa y su n° de cochera
     $app->get('/dashboard/vehiculosenplaya', function (Request $request, Response $response) {
-        $response->getBody()->write('HOLA');
+        
+        
+        $response->getBody()->write(VehiculosEnPlaya());
 
-//        $response->getBody()->write(VehiculosEnPlaya());
         return $response;
     });
 
@@ -47,7 +57,7 @@ require 'funcDashboard.php';
 
         return $response;
     });
-    
+   
     
     
     $app->run();

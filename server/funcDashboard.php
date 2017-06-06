@@ -1,24 +1,20 @@
 <?php
     
-require 'DataBaseMan.php';
+    require_once 'DataBaseMan.php';
 
-    function VehiculosEnPlaya()
-    {
-        $db = new DataBaseMan();
-        $datos = $db->query(
-                            "SELECT 'm.id', 'm.patente', 'c.numero' 
-                             FROM movimientos m 
-                             LEFT JOIN cochera c ON m.idcochera = c.id 
-                             WHERE m.fechasalida = null;"
-                             );
-        return json_encode($datos);
-
+    function VehiculosEnPlaya(){
+        $db = DataBaseMan::Connect();
+        $datos = $db->Query("SELECT * FROM movimientos");
+            //"SELECT 'm.id', 'm.patente', 'c.numero' FROM movimientos m LEFT JOIN cochera c ON m.idcochera = c.id WHERE m.fechasalida = null");
+        return $datos;
     }
 
+    VehiculosEnPlaya();
 
+/*
     function InfoSalidaVehiculo($id){
         $db = new DataBaseMan();
-        $datos = $db->query(
+        $datos = $db->Query(
                             "SELECT 'm.id', 'm.patente', 'm.color', 'm.marca', 'm.ingresofechahora', 'c.numero', m.total 
                              FROM movimientos m 
                              LEFT JOIN cochera c ON m.idcochera = c.id 
@@ -28,11 +24,11 @@ require 'DataBaseMan.php';
     }
 
 
-
      function IngresoVehiculo($vehiculo){
                 
 
 
 
      }
+*/
 ?>
