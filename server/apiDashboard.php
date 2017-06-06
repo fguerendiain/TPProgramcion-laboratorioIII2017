@@ -21,10 +21,7 @@ require 'funcDashboard.php';
 
     //Traer listado de ptentes de vehiculos en playa y su n° de cochera
     $app->get('/dashboard/vehiculosenplaya', function (Request $request, Response $response) {
-        
-        
         $response->getBody()->write(VehiculosEnPlaya());
-
         return $response;
     });
 

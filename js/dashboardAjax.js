@@ -5,38 +5,51 @@
 
 function traerVehiculosEnPlaya(){
 
-  $.ajax({
-      url:'http://localhost:8080/TPProgramcion-laboratorioIII2017/server/dashboard/vehiculosenplaya',
-      type:'GET'
-  })
-  .done(function(data){
-    var vehiculosEnPlayaArray = JSON.parse(data)
+    $.ajax({
+        url:'/TPProgramcion-laboratorioIII2017/server/apiDashboard.php/dashboard/vehiculosenplaya',
+        type:'GET'
+    })
+    .done(function(data){
 
-    var tableVehiculosEnPlaya = "<table class='table table-striped'>\
-                                        <tr>\
-                                            <th>PATENTE</th>\
-                                            <th>COCHERA</th>\
-                                        </tr>"
+        var vehiculosEnPlayaArray = JSON.parse(data);
 
-    for(vehiculo in vehiculosEnPlayaArray){
+        var tableVehiculosEnPlaya = "<table class='table table-striped'>\
+                                            <tr>\
+                                                <th>PATENTE</th>\
+                                                <th>COCHERA</th>\
+                                            </tr>";
 
-        tableVehiculosEnPlaya += "<tr data-valor='"+vehiculo.id+"' class='clickOnTable' >\
-                                        <td>'"+vehiculo.patente+"'</td>\
-                                        <td>'"+vehiculo.cochera+"'</td>\
-                                    </tr>"
-    }
+        for(var i=0; i<vehiculosEnPlayaArray.length; i++){
 
-    tableVehiculosEnPlaya+="</table>"
+        tableVehiculosEnPlaya += "<tr data-valor="+vehiculosEnPlayaArray[i].id+" class='clickOnTable' >\
+                                        <td>"+vehiculosEnPlayaArray[i].patente+"</td>\
+                                        <td>"+vehiculosEnPlayaArray[i].numero+"</td>\
+                                    </tr>";
+        }
 
-    return tableVehiculosEnPlaya;
+        tableVehiculosEnPlaya+="</table>";
 
-  });
-
+        $('.vehicleDinamicTable').html(tableVehiculosEnPlaya);
+    });
 }
 
 
 
 function traerDatosVehiculo(id){
 
+    alert("Antes de entrar al AJAX "+id);
+
+    $.ajax({
+        url:'/TPProgramcion-laboratorioIII2017/server/apiDashboard.php/dashboard/infosalidavehiculo',
+        type:'GET',
+        data: {'id':id},
+        dataType: "xml/html/script/json",
+        contentType: "application/json"
+    })
+    .done(function(data){
+        alert("PASo el AJAX");
+        $('.datosVehiculo').html("<h1>hola</h1>");
+
+    });
 }
 
