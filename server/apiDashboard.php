@@ -18,6 +18,10 @@ require 'funcDashboard.php';
                 ->withHeader('Access-Control-Allow-Methods','GET, POST, PUT, DELETE, OPTIONS');
     });
 
+    $app->get('/dashboard/fechahoraactual', function (Request $request, Response $response) {
+        $response->getBody()->write(date("Ymdhi"));
+        return $response;
+    });
 
     //Traer listado de ptentes de vehiculos en playa y su n° de cochera
     $app->get('/dashboard/vehiculosenplaya', function (Request $request, Response $response) {
@@ -28,7 +32,7 @@ require 'funcDashboard.php';
 
     //Traer informacion necesaria para completar los campos de salida de vehiculo
     $app->get('/dashboard/infosalidavehiculo', function (Request $request, Response $response) {
-        $id = $request->getAttribute('id');
+        $id = $request->getQueryParam('id');
         $response->getBody()->write(InfoSalidaVehiculo($id));
         return $response;
     });

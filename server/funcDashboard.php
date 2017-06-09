@@ -15,7 +15,7 @@
     function InfoSalidaVehiculo($id){
         $db = DataBaseMan::Connect();
         $datos = $db->Query(
-                            "SELECT m.id, m.patente, m.color, m.marca, m.ingresofechahora, c.numero, m.total
+                            "SELECT m.id, m.patente, m.color, m.marca, m.ingresofechahora, c.numero
                              FROM movimientos m
                              LEFT JOIN cocheras c ON m.idcochera = c.id
                              WHERE m.id = ".$id.";");

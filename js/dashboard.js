@@ -11,7 +11,6 @@ $(document).ready(function(){
             $('input[name="txtPatenteExtVehicleIn"]').attr('disabled', true).focus();
             $('input[name="txtPatenteExtVehicleIn"]').val('');
         });
-
         $('input[id="patenteselectorExt"]').on('change', function() {
             $('input[name="txtPatenteExtVehicleIn"]').attr('disabled', false).focus();
             $('input[name="txtPatenteNacVehicleIn"]').attr('disabled', true).focus();
@@ -36,14 +35,24 @@ $(document).ready(function(){
 
         //CALCULAR ESTADIA
         $('#btnVehicleCalc').click(function(){
-            alert("btnVehicleCalc");
-            $('#btnVehicleOut').attr("disabled", false);
+            var id = $('.tableInfoVehiculo').attr("data-valor");
+            var fechaIngreso = $('#fechaIgresoVehiculo').html();
+
+            fechaIngreso = "1234"; //Dato cualquiera hasta definir la forma de manejar las fechas
+
+            calcularEstadia(fechaIngreso);
+
+            $('#btnVehicleCalc').attr("disabled", true); //oculto
+            $('#btnVehicleOut').attr("disabled", false); //visible
         });
 
         //EGRESO VEHICULO
         $('#btnVehicleOut').click(function(){
-            alert("btnVehicleOut");
-            $('#btnVehicleOut').attr("disabled", true);
+
+            $('.datosVehiculo').html(""); //reseteo los campos 
+            $('.importeAPagar').html(""); //reseteo los campos
+
+            $('#btnVehicleOut').attr("disabled", true); //oculto
         });
 
         
@@ -52,6 +61,8 @@ $(document).ready(function(){
             e.preventDefault();
             var id = $(this).attr("data-valor");
             traerDatosVehiculo(id);
+            $('#btnVehicleCalc').attr("disabled", false); //visible
+            $('#btnVehicleOut').attr("disabled", true); //oculto
         });
 
 
