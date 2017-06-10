@@ -61,6 +61,10 @@ $(document).ready(function(){
             e.preventDefault();
             var id = $(this).attr("data-valor");
             traerDatosVehiculo(id);
+            
+            $('.datosVehiculo').html(""); //reseteo los campos 
+            $('.importeAPagar').html(""); //reseteo los campos
+
             $('#btnVehicleCalc').attr("disabled", false); //visible
             $('#btnVehicleOut').attr("disabled", true); //oculto
         });

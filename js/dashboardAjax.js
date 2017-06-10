@@ -12,7 +12,7 @@ function traerVehiculosEnPlaya(){
 
         var vehiculosEnPlayaArray = JSON.parse(data);
 
-        var tableVehiculosEnPlaya = "<table class='table table-striped'>\
+        var tableVehiculosEnPlaya = "<table class='table'>\
                                             <tr>\
                                                 <th>PATENTE</th>\
                                                 <th>COCHERA</th>\
@@ -20,7 +20,7 @@ function traerVehiculosEnPlaya(){
 
         for(var i=0; i<vehiculosEnPlayaArray.length; i++){
 
-        tableVehiculosEnPlaya += "<tr data-valor="+vehiculosEnPlayaArray[i].id+" class='clickOnTable' >\
+        tableVehiculosEnPlaya += "<tr data-valor="+vehiculosEnPlayaArray[i].id+" class='clickOnTable trHover' >\
                                         <td>"+vehiculosEnPlayaArray[i].patente+"</td>\
                                         <td>"+vehiculosEnPlayaArray[i].numero+"</td>\
                                     </tr>";
@@ -46,7 +46,7 @@ function traerDatosVehiculo(id){
         dataType: "xml/html/script/json",
         contentType: "application/json",
     })
-    .fail(function(data){
+    .fail(function(data){ //POR QUE CARAJO ME FUNCIONA CON EL FAIL Y NO CON EL DONE
 
         var infoVehiculoASalir = JSON.parse(data.responseText);
         
@@ -64,7 +64,7 @@ function traerDatosVehiculo(id){
                                     <td>"+infoVehiculoASalir[0].marca+"</td>\
                                     <td>"+infoVehiculoASalir[0].color+"</td>\
                                     <td>"+infoVehiculoASalir[0].numero+"</td>\
-                                    <td id='fechaIgresoVehiculo'>"+infoVehiculoASalir[0].ingresofechahora+"</td>\
+                                    <td id='fechaIgresoVehiculo' data-valor="+infoVehiculoASalir[0].ingresofechahora+">"+formatearHoraDelServidor(infoVehiculoASalir[0].ingresofechahora)+"</td>\
                                     <td id='fechaEgresoACalcular'>CALCULAR</td>\
                                 </tr>\
                             </table>";
@@ -90,11 +90,11 @@ function calcularEstadia(fechaIngreso){
             /*3-Cobro por hora$10 o media estadía $90(12hs) o
             estadia$170(24hs)*/
 
-        $('#fechaEgresoACalcular').html(fechaHoraServidor()); //"congela" la fecha de salida tentativa
+        $('#fechaEgresoACalcular').html(formatearHoraDelServidor(fechaHoraServidor())); //"congela" la fecha de salida tentativa
 
 
 
-        $('.importeAPagar').html("Un riñon"); //Muestra el total a pagar
+        $('.importeAPagar').html("$50"); //Muestra el total a pagar
 }
 
 
@@ -112,4 +112,18 @@ function fechaHoraServidor(){
         fechaHora = data;
     });
     return fechaHora;
+}
+
+/*
+ * Da formato a los valores utilizados para Fecha y Hora
+*/
+function formatearHoraDelServidor(fechaHora){
+
+        var year = fechaHora.substring(0,4);
+        var mes = fechaHora.substring(4,6);
+        var dia = fechaHora.substring(6,8);
+        var hora = fechaHora.substring(8,10);
+        var minutos = fechaHora.substring(10,12);
+
+        return hora+":"+minutos+"Hs "+dia+"/"+mes+"/"+year;
 }
