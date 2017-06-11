@@ -1,16 +1,18 @@
+const PUTO = "puto";
+
 /*
  * trae los datos del servidor y
  * arma la tabla en forma dinamica
 */
-function traerVehiculosEnPlaya(){
+function traerVehiculosEnPlaya(cb){
 
     $.ajax({
         url:'/TPProgramcion-laboratorioIII2017/server/apiDashboard.php/dashboard/vehiculosenplaya',
         type:'GET'
     })
-    .done(function(data){
+    .done(function(vehiculosEnPlayaArray/*data*/){
 
-        var vehiculosEnPlayaArray = JSON.parse(data);
+//        var vehiculosEnPlayaArray = JSON.parse(data);
 
         var tableVehiculosEnPlaya = "<table class='table'>\
                                             <tr>\
@@ -29,6 +31,8 @@ function traerVehiculosEnPlaya(){
         tableVehiculosEnPlaya+="</table>";
 
         $('.vehicleDinamicTable').html(tableVehiculosEnPlaya);
+
+        cb(vehiculosEnPlayaArray);
     });
 }
 
@@ -43,12 +47,12 @@ function traerDatosVehiculo(id){
         url:'/TPProgramcion-laboratorioIII2017/server/apiDashboard.php/dashboard/infosalidavehiculo',
         type:'GET',
         data: {'id':id},
-        dataType: "xml/html/script/json",
+    //    dataType: "xml/html/script/json",
         contentType: "application/json",
     })
-    .fail(function(data){ //POR QUE CARAJO ME FUNCIONA CON EL FAIL Y NO CON EL DONE
+    /*.fail*/.done(function(/*data*/infoVehiculoASalir){ //POR QUE CARAJO ME FUNCIONA CON EL FAIL Y NO CON EL DONE
 
-        var infoVehiculoASalir = JSON.parse(data.responseText);
+        // var infoVehiculoASalir = JSON.parse(data.responseText);
         
         var infAMostrar ="<table class='table table-striped tableInfoVehiculo' data-valor="+infoVehiculoASalir[0].id+">\
                                 <tr>\
@@ -71,14 +75,14 @@ function traerDatosVehiculo(id){
         
         $('.datosVehiculo').html(infAMostrar);
 
-    })
-    .done(function(data){
- 
-        $('.datosVehiculo').html("<h4>No se pueden traer los datos</h4>");
-        console.log(data);
-        console.log(data.responseText);
-
     });
+    // .done(function(data){
+ 
+    //     $('.datosVehiculo').html("<h4>No se pueden traer los datos</h4>");
+    //     console.log(data);
+    //     console.log(data.responseText);
+
+    // });
 }
 
 

@@ -1,3 +1,83 @@
+/********************************************************/
+/*          DEFINICIÓN DE RECURSOS Y ACCIONES           */
+/********************************************************/
+
+GET /place
+Trae todas las cocheras que no estén marcadas como borradas
+
+GET /place?onlyinuse=true
+Trae todas las cocheras que en este momento tengan
+un vehículo estacionado y que no estén marcadas como borradas.
+
+GET /place/:id
+Trae la chochera con id o número ":id"
+
+PUT /place/:id
+Recibe por el cuerpo del mensaje los datos de la cochera
+que son los que van a ser modificados en la cochera con
+id o número ":id"
+
+POST /place
+Recibe por el cuerpo del mensaje los datos de una cochera
+para crear con estos una nueva cochera. Devuelve la cochera
+creada.
+
+DELETE /place/:id
+Marca como borrada la cochera con id ":id"
+
+GET /vehicle
+Trae todos los vehiculos
+
+GET /vehicle/:id
+Trae el vehículo con id ":id"
+
+PUT /vehicle/:id
+Recibe por el cuerpo del mensaje un vehículo y lo utiliza
+para actualizar el vehículo con id ":id"
+
+POST /vehicle
+Recibe por el cuerpo del mensaje un vehículo y lo crea
+en el sistema.
+
+GET /park
+Trae todas las instancias de estacionado
+
+GET /park?active=false
+
+GET /park?from=lastLogin
+
+GET /park?from=12135484321
+
+GET /park?place=776
+
+GET /park?from=lastLogin&active=false&order=date_desc
+
+GET /park?active=true
+Trae todas las instancias de estacionado que no
+tengan fecha de salida.
+
+POST /park
+Recibe por el cuerpo del mensaje la referencia a una
+cochera y todos los datos de un vehículo. Con esta
+información crea una instancia de estacionado agregando
+la fecha y hora actual como hora de entrada. Si el
+vehículo referenciado en los datos enviados no existe
+en el sistema, entonces es creado con estos.
+
+PUT /park/:id
+Si no se recibe nada por cuerpo agrega a la instancia de
+estacionado con id ":id" la fecha de salida. Además calcula
+el precio a pagar por esta instancia y lo persiste
+en el sistema. Devuelve la instancia de estacionado editada
+que debe incluir de una u otra forma el precio calculado.
+
+
+
+
+
+Content-Type : application/json; charset=utf-8
+
+
 TABLAS BASE DE DATOS
 
 
@@ -35,6 +115,15 @@ create table movimientos(
     FOREIGN KEY(idcochera)
 )
 
+create table park (
+    uuid varchar(36) primary key not null,
+    vehicle varchar(36) not null references vehicle(uuid),
+    place varchar(36) not null references place(uuid),
+    in real not null,
+    out real
+)
+    
+    
 
 
 ------------------------------------------------------------------

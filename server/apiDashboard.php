@@ -15,11 +15,13 @@ require 'funcDashboard.php';
         return $response
                 ->withHeader('Access-Control-Allow-Origin','*')
                 ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type. Accept, Origin, Authorization')
-                ->withHeader('Access-Control-Allow-Methods','GET, POST, PUT, DELETE, OPTIONS');
+                ->withHeader('Access-Control-Allow-Methods','GET, POST, PUT, DELETE, OPTIONS')
+                ->withHeader('Content-Type','application/json; charset=utf-8');
     });
 
-    $app->get('/dashboard/fechahoraactual', function (Request $request, Response $response) {
-        $response->getBody()->write(date("Ymdhi"));
+
+    $app->get('/dashboard/fechahoraactual', function (Request $request, Response $response) { 
+        $response->getBody()->write(date());
         return $response;
     });
 

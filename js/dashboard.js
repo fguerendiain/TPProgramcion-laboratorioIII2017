@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
-    traerVehiculosEnPlaya();
-    $(document).ready(function(){
+    traerVehiculosEnPlaya(function(){
+//    $(document).ready(function(){
 
         //botones ------------------
 
