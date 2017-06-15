@@ -3,10 +3,10 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require_once '../vendor/autoload.php';
-require_once 'funcPlaceApiRest.php';
-require_once 'funcVehicleApiRest.php';
-require_once 'funcParkApiRest.php';
+require_once './vendor/autoload.php';
+require_once './server/entities/funcPlaceApiRest.php';
+require_once './server/entities/funcVehicleApiRest.php';
+require_once './server/entities/funcParkApiRest.php';
 
 
     $app = new \Slim\App;
