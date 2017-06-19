@@ -3,17 +3,17 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require_once './vendor/autoload.php';
-require_once './server/entities/funcPlaceApiRest.php';
-require_once './server/entities/funcVehicleApiRest.php';
-require_once './server/entities/funcParkApiRest.php';
+require_once '../../vendor/autoload.php';
+require_once '../entities/funcPlaceApiRest.php';
+require_once '../entities/funcVehicleApiRest.php';
+require_once '../entities/funcParkApiRest.php';
 
 
     $app = new \Slim\App;
 
     //CONFIGURACION DE CORS PARA LA API
-    $app->add(function($req, $res, $next){
-        $response = $next($req, $res);
+    $app->add(function($request, $response, $next){
+        $response = $next($request, $response);
         return $response
                 ->withHeader('Access-Control-Allow-Origin','*')
                 ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type. Accept, Origin, Authorization')
@@ -21,22 +21,22 @@ require_once './server/entities/funcParkApiRest.php';
                 ->withHeader('Content-Type','application/json; charset=utf-8');
     });
 
-    $app->get('/place',funcPlaceApiRest::BringThemAll($req, $resp));
-    $app->get('/place?onlyinuse=true',funcPlaceApiRest::BringThemAllByFilter($req, $resp));
-    $app->get('/place/:id',funcPlaceApiRest::BringOneById($req, $resp));
-    $app->put('/place/:id',funcPlaceApiRest::ModifyOneById($req, $resp));
-    $app->post('/place',funcPlaceApiRest::AddNew($req, $resp));
-    $app->delete('/place/:id',funcPlaceApiRest::SetOneDeleteById($req, $resp));
+    $app->get('/place',BringThemAllPlace);//($request, $response));
+/*    $app->get('/place?onlyinuse=true',BringThemAllByFilterPlace);//($request, $response));
+    $app->get('/place/:id',BringOneByIdPlace);//($request, $response));
+    $app->put('/place/:id',ModifyOneByIdPlace);//($request, $response));
+    $app->post('/place',AddNewPlace);//($request, $response));
+    $app->delete('/place/:id',SetOneDeleteByIdPlace);//($request, $response));
     
-    $app->get('/vehicle',funcVehicleApiRest::BringThemAll($req, $resp));
-    $app->get('/vehicle/:id',funcVehicleApiRest::BringOneById($req, $resp));
-    $app->put('/vehicle/:id',funcVehicleApiRest::ModifyOneById($req, $resp));
-    $app->post('/vehicle',funcVehicleApiRest::AddNew($req, $resp));
+    $app->get('/vehicle',BringThemAllVehicle);//($request, $response));
+    $app->get('/vehicle/:id',BringOneByIdVehicle);//($request, $response));
+    $app->put('/vehicle/:id',ModifyOneByIdVehicle);//($request, $response));
+    $app->post('/vehicle',AddNewVehicle);//($request, $response));
 
-    $app->get('/park',funcParkApiRest::BringThemAll($req, $resp));
-    $app->get('/park?active=true',funcParkApiRest::BringThemAllByFilter($req, $resp));
-    $app->post('/park',funcParkApiRest::AddNew($req, $resp));
-    $app->put('/park/:id',funcParkApiRest::ModifyOneById($req, $resp));
-
+    $app->get('/park',BringThemAllPark);//($request, $response));
+    $app->get('/park?active=true',BringThemAllByFilterPark);//($request, $response));
+    $app->post('/park',AddNewPark);//($request, $response));
+    $app->put('/park/:id',ModifyOneByIdPark);//($request, $response));
+*/
 
 ?>

@@ -3,34 +3,34 @@
 /*                  PLACE                */
 /*****************************************/
 
-    require_once './vendor/autoload.php';
-    require_once './server/entities/class/place.php';
+    require_once '../../vendor/autoload.php';
+    require_once 'class/place.php';
 
 
-    function BringThemAll($req, $resp){
-        $resp->getBody()->write(/*funcionDeClase()*/);
+    function BringThemAllPlace($req, $resp){
+        $resp->getBody()->write(VehiculosEnPlaya());
         return $resp;
     }
 
-    function BringThemAllByFilter($req, $resp){
+    function BringThemAllByFilterPlace($req, $resp){
         $filter = $req->getQueryParam('filter');
         $resp->getBody()->write(/*funcionDeClase($filter)*/);
         return $resp;
     }
 
-    function BringOneById($req, $resp){
+    function BringOneByIdPlace($req, $resp){
         $filter = $req->getQueryParam('filter');
         $resp->getBody()->write(/*funcionDeClase($filter)*/);
         return $resp;
     }
 
-    function ModifyOneById($req, $resp){
+    function ModifyOneByIdPlace($req, $resp){
         $filter = $req->getAttribute('filter');
         $resp->getBody()->write(/*funcionDeClase($filter)*/);
         return $resp;
     }
 
-    function AddNew($req, $resp){
+    function AddNewPlace($req, $resp){
         $respArray = array();
         $respArray->push($req->getAttribute(/*'atributo'*/));
         $respArray->push($req->getAttribute(/*'atributo'*/));
@@ -40,7 +40,7 @@
         return $resp;
     }
 
-    function SetOneDeleteById($req, $resp){
+    function SetOneDeleteByIdPlace($req, $resp){
         $filter = $req->getAttribute('filter');
         $resp->getBody()->write(/*funcionDeClase($filter)*/);
         return $resp;

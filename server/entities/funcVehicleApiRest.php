@@ -3,27 +3,27 @@
 /*                  VEHICLE                */
 /*******************************************/
 
-    require_once './vendor/autoload.php';
-    require_once './server/entities/class/vehicle.php';
+    require_once '../../vendor/autoload.php';
+    require_once 'class/vehicle.php';
 
-    function BringThemAll($req, $resp){
+    function BringThemAllVehicle($req, $resp){
         $resp->getBody()->write(/*funcionDeClase()*/);
         return $resp;
     }
 
-    function BringOneById($req, $resp){
+    function BringOneByIdVehicle($req, $resp){
         $filter = $req->getQueryParam('filter');
         $resp->getBody()->write(/*funcionDeClase($filter)*/);
         return $resp;
     }
 
-    function ModifyOneById($req, $resp){
+    function ModifyOneByIdVehicle($req, $resp){
         $filter = $req->getAttribute('filter');
         $resp->getBody()->write(/*funcionDeClase($filter)*/);
         return $resp;
     }
 
-    function AddNew($req, $resp){
+    function AddNewVehicle($req, $resp){
         $respArray = array();
         $respArray->push($req->getAttribute(/*'atributo'*/));
         $respArray->push($req->getAttribute(/*'atributo'*/));
