@@ -28,15 +28,15 @@
         $this->get('/', \funcPlaceApiRest::class . ':BringThemAllPlace');
         $this->get('/?onlyinuse=true', \funcPlaceApiRest::class . ':BringThemAllByFilterPlace');
         $this->get('/id', \funcPlaceApiRest::class . ':BringOneByIdPlace');
-        $this->put('/:id', \funcPlaceApiRest::class . ':ModifyOneByIdPlace');
+        $this->put('/id', \funcPlaceApiRest::class . ':ModifyOneByIdPlace');
         $this->post('/', \funcPlaceApiRest::class . ':AddNewPlace');
-        $this->delete('/:id', \funcPlaceApiRest::class . ':SetOneDeleteByIdPlace');
+        $this->delete('/id', \funcPlaceApiRest::class . ':SetOneDeleteByIdPlace');
     });
 
     $app->group('/vehicle', function () {
         $this->get('/', \funcVehicleApiRest::class . ':BringThemAllVehicle');
-        $this->get('/:id', \funcVehicleApiRest::class . ':BringOneByIdVehicle');
-        $this->put('/:id', \funcVehicleApiRest::class . ':ModifyOneByIdVehicle');
+        $this->get('/id', \funcVehicleApiRest::class . ':BringOneByIdVehicle');
+        $this->put('/id', \funcVehicleApiRest::class . ':ModifyOneByIdVehicle');
         $this->post('/', \funcVehicleApiRest::class . ':AddNewVehicle');
     });
 
@@ -44,7 +44,7 @@
         $this->get('/', \funcParkApiRest::class . ':BringThemAllPark');
         $this->get('/?active=true', \funcParkApiRest::class . ':BringThemAllByFilterPark');
         $this->post('/', \funcParkApiRest::class . ':AddNewPark');
-        $this->put('/:id', \funcParkApiRest::class . ':ModifyOneByIdPark');
+        $this->put('/id', \funcParkApiRest::class . ':ModifyOneByIdPark');
     });
 
     $app->run();
