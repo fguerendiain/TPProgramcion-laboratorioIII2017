@@ -1,15 +1,17 @@
 <?php
 
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
+    use \Psr\Http\Message\ServerRequestInterface as Request;
+    use \Psr\Http\Message\ResponseInterface as Response;
 
-require_once '../../vendor/autoload.php';
-require_once '../entities/funcPlaceApiRest.php';
-require_once '../entities/funcVehicleApiRest.php';
-require_once '../entities/funcParkApiRest.php';
+    require_once '../../vendor/autoload.php';
+    require_once '../entities/funcPlaceApiRest.php';
+    require_once '../entities/funcVehicleApiRest.php';
+    require_once '../entities/funcParkApiRest.php';
 
+    $config['displayErrorDetails'] = true;
+    $config['addContentLengthHeader'] = false;
 
-    $app = new \Slim\App;
+    $app = new \Slim\App(["settings" => $config]);
 
     //CONFIGURACION DE CORS PARA LA API
     $app->add(function($request, $response, $next){
@@ -21,22 +23,31 @@ require_once '../entities/funcParkApiRest.php';
                 ->withHeader('Content-Type','application/json; charset=utf-8');
     });
 
-    $app->get('/place',BringThemAllPlace);//($request, $response));
-/*    $app->get('/place?onlyinuse=true',BringThemAllByFilterPlace);//($request, $response));
-    $app->get('/place/:id',BringOneByIdPlace);//($request, $response));
-    $app->put('/place/:id',ModifyOneByIdPlace);//($request, $response));
-    $app->post('/place',AddNewPlace);//($request, $response));
-    $app->delete('/place/:id',SetOneDeleteByIdPlace);//($request, $response));
-    
-    $app->get('/vehicle',BringThemAllVehicle);//($request, $response));
-    $app->get('/vehicle/:id',BringOneByIdVehicle);//($request, $response));
-    $app->put('/vehicle/:id',ModifyOneByIdVehicle);//($request, $response));
-    $app->post('/vehicle',AddNewVehicle);//($request, $response));
+ 
+    $app->group('/place', function () {
+        $this->get('/', \funcPlaceApiRest::class . ':BringThemAllPlace');
+        $this->get('/?onlyinuse=true', \funcPlaceApiRest::class . ':BringThemAllByFilterPlace');
+        $this->get('/id', \funcPlaceApiRest::class . ':BringOneByIdPlace');
+        $this->put('/:id', \funcPlaceApiRest::class . ':ModifyOneByIdPlace');
+        $this->post('/', \funcPlaceApiRest::class . ':AddNewPlace');
+        $this->delete('/:id', \funcPlaceApiRest::class . ':SetOneDeleteByIdPlace');
+    });
 
-    $app->get('/park',BringThemAllPark);//($request, $response));
-    $app->get('/park?active=true',BringThemAllByFilterPark);//($request, $response));
-    $app->post('/park',AddNewPark);//($request, $response));
-    $app->put('/park/:id',ModifyOneByIdPark);//($request, $response));
-*/
+    $app->group('/vehicle', function () {
+        $this->get('/', \funcVehicleApiRest::class . ':BringThemAllVehicle');
+        $this->get('/:id', \funcVehicleApiRest::class . ':BringOneByIdVehicle');
+        $this->put('/:id', \funcVehicleApiRest::class . ':ModifyOneByIdVehicle');
+        $this->post('/', \funcVehicleApiRest::class . ':AddNewVehicle');
+    });
+
+    $app->group('/park', function () {
+        $this->get('/', \funcParkApiRest::class . ':BringThemAllPark');
+        $this->get('/?active=true', \funcParkApiRest::class . ':BringThemAllByFilterPark');
+        $this->post('/', \funcParkApiRest::class . ':AddNewPark');
+        $this->put('/:id', \funcParkApiRest::class . ':ModifyOneByIdPark');
+    });
+
+    $app->run();
+    /*->add(Midelware)*/
 
 ?>

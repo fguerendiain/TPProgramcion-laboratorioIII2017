@@ -6,6 +6,7 @@
     require_once '../../vendor/autoload.php';
     require_once 'class/park.php';
 
+class funcParkApiRest{
 
     function BringThemAllPark($req, $resp){
         $resp->getBody()->write(/*funcionDeClase()*/);
@@ -33,6 +34,8 @@
         $resp->getBody()->write(/*funcionDeClase($filter)*/);
         return $resp;
     }
+
+}
 
 /*
 
