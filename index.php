@@ -4,6 +4,10 @@
 
     require_once './vendor/autoload.php';
     require_once './resources/PlaceResource.php';
+    require_once './resources/VehicleResource.php';
+    require_once './resources/UserResource.php';
+    require_once './resources/SessionResource.php';
+    require_once './resources/ParkingResource.php';
 
     $config['displayErrorDetails'] = true;
     $config['addContentLengthHeader'] = false;
@@ -20,7 +24,7 @@
                 ->withHeader('Content-Type','application/json; charset=utf-8');
     });
 
-    $app->group('/place', function () {
+    $app->group('/place', function () { //ok
         $this->get('',           \PlaceResource::class . ':find');
         $this->post('',          \PlaceResource::class . ':create');
         $this->get('/{id}',      \PlaceResource::class . ':get');
@@ -28,26 +32,26 @@
         $this->delete('/{id}',   \PlaceResource::class . ':delete');
     });
 
-    $app->group('/vehicle', function(){
+    $app->group('/vehicle', function(){ //ok
         $this->get('',           \VehicleResource::class . ':find');
         $this->get('/{id}',      \VehicleResource::class . ':get');
     });
 
     $app->group('/parking', function(){
-        $this->get('',           \PlaceResource::class . ':find');
-        $this->post('',          \PlaceResource::class . ':create');
-        $this->get('/{id}',      \PlaceResource::class . ':get');
-        $this->put('/{id}',      \PlaceResource::class . ':update');
+        $this->get('',           \ParkingResource::class . ':find');
+        $this->post('',          \ParkingResource::class . ':create');
+        $this->get('/{id}',      \ParkingResource::class . ':get');
+        $this->put('/{id}',      \ParkingResource::class . ':update');
     });
 
-    $app->group('/user', function(){
+    $app->group('/user', function(){ //ok
         $this->get('/{id}',      \UserResource::class . ':get');
         $this->get('',           \UserResource::class . ':find');
         $this->put('/{id}',      \UserResource::class . ':update');
         $this->delete('/{id}',   \UserResource::class . ':delete');
     });
 
-    $app->group('/session', function(){
+    $app->group('/session', function(){ //ok
         $this->post('',          \SessionResource::class . ':create');
     });
 

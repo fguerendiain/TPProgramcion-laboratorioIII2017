@@ -60,7 +60,7 @@
                 return $resp->withStatus(404);
             }else{
                 PlaceDal::delete($id);
-                return $resp->getBody()->write();
+                return $resp->getBody()->write(json_encode("Se elimino el indice ".$id));
             }            
         }
 

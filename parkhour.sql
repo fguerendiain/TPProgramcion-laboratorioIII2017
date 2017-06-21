@@ -13,6 +13,7 @@ create table session(
     id int not null auto_increment primary key,
     token char(36) not null,
     owner int not null,
+    intime bigint not null,
     deleted boolean not null default false,
     foreign key (owner) references users(id) on delete cascade
 );

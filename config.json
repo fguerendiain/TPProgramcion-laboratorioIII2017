@@ -3,7 +3,7 @@
         "host":"localhost",
         "port":3306,
         "db":"parkhour",
-        "user":"sql",
-        "password":"sql"
+        "user":"root",
+        "password":"root"
     }
 }
