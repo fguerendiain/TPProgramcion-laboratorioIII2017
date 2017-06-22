@@ -2,6 +2,7 @@
     require_once dirname(__FILE__)."/../libs/DalTools.php";
     require_once dirname(__FILE__)."/VehicleDal.php";
 
+
     class ParkingDal{
 
         public static function findAll(){
@@ -24,6 +25,10 @@
             return $parking;
         }
 
+
+        /*
+         *  CARGA EL TIEMPO , USUARIO Y PRECIO DE SALIDA PARA LA ESTADIA INDICADA
+         */
         public static function update($id, $outuser, $outtime, $price){
             $query = "update parking set outuser = ?, outtime = ?, price = ? where id = ?";
             $params = [$outuser, $outtime, $price, $id];
@@ -33,13 +38,12 @@
 
 
         /*
-         *  MODIFICA LOS VALORES EL ID DEL VEHICULO Y LA ESTADIA
+         *  MODIFICA EL ID DEL VEHICULO Y LA ESTADIA
          */
         public static function updateData($id, $vehicle, $place){
             $queryParking = "update parking set vehicle = ?, place = ? where id = ?";
             $paramsParking = [$vehicle, $place, $id];
             DalTools::query($queryParking, $paramsParking);
-
             return ParkingDal::get($id);
         }
 
@@ -62,7 +66,7 @@
                 DalTools::queryForOne($query,$params);
              //   $createdVehicleId = DalTools::queryForOne($query,$params);
              //   return $createdVehicleId;
-                return ParkingDal::getVehicle($license, $alien, $colour, $model, $brand); //Uso recursividad por que luego del incert PDO no me devuelve el indice
+                return ParkingDal::getVehicle($license, $alien, $colour, $model, $brand); //Uso recursividad por que luego del incert PDO no me devuelve bien el indice
             }
         }
 
@@ -72,26 +76,37 @@
          */
         public static function setPrice($intime,$outtime){
 
-            $parkedTime = $outtime - $intime;
-        
-            if($parkedTime <  ){
+            $config = json_decode(file_get_contents(dirname(__FILE__)."/../config.json"));
 
+            $parkedPrice = 0;
+            $PriceHour = $config->price->hour;
+            $PriceHalfStay = $config->price->halfStay;
+            $PriceStay = $config->price->stay;
+
+            $parkedTime = $outtime - $intime;
+            $timeHour = $config->time->hour;
+            $timeHalfStay = $config->time->halfStay;
+            $timeStay =  $config->time->stay;
+
+            while($parkedTime >= $timeStay){
+                $parkedPrice += $PriceStay;
+                $parkedTime -= $timeStay;
+            }
+            while($parkedTime >= $timeHalfStay){
+                $parkedPrice += $PriceHalfStay;
+                $parkedTime -= $timeHalfStay;
+            }
+            while($parkedTime >= $timeHour){
+                $parkedPrice += $PriceHour;
+                $parkedTime -= $timeHour;
+            }
+            if($parkedTime < $timeHour/4){
+                $parkedPrice += 0;
+            }else{
+                $parkedPrice += $PriceHour;
             }
 
-
-            
-
-/*
-    TABLA UNIXTIMSTAMP
-        -minuto = 60,
-        -hora = 3600,
-        -6horas = 21600,
-        -12horas = 43200,
-        -dia = 86400,
-        -mes = 2592000,
-
-*/
-            return $parkedTime;
+            return $parkedPrice;
         }
     }
 ?>

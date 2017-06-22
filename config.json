@@ -5,5 +5,16 @@
         "db":"parkhour",
         "user":"root",
         "password":"root"
+    },
+    "price":{
+        "hour":1000,
+        "halfStay":9000,
+        "stay":17000
+    },
+    "time":{
+        "hour":3600,
+        "halfStay":43200,
+        "stay":86400
     }
+
 }

@@ -6,7 +6,6 @@ class PDOHandler
 	private function __construct()
 	{
         $config = json_decode(file_get_contents(dirname(__FILE__)."/../config.json"));
-
         $dsn = "mysql:host=".$config->db->host.";port=".$config->db->port.";dbname=".$config->db->db.";charset=utf8";
 
 		try {

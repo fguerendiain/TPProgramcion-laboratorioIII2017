@@ -25,37 +25,35 @@
     });
 
     $app->group('/place', function () { //ok
-        $this->get('',           \PlaceResource::class . ':find');
+        $this->get('',           \PlaceResource::class . ':find'); //?includeinactive=false (Traer Todas las cocheras incluyendo inactivas)
         $this->post('',          \PlaceResource::class . ':create');
         $this->get('/{id}',      \PlaceResource::class . ':get');
         $this->put('/{id}',      \PlaceResource::class . ':update');
         $this->delete('/{id}',   \PlaceResource::class . ':delete');
-    });
+    })/*->add(Midelware)*/;
 
     $app->group('/vehicle', function(){ //ok
         $this->get('',           \VehicleResource::class . ':find');
         $this->get('/{id}',      \VehicleResource::class . ':get');
-    });
+    })/*->add(Midelware)*/;
 
     $app->group('/parking', function(){
         $this->get('',           \ParkingResource::class . ':find');
         $this->post('',          \ParkingResource::class . ':create');
         $this->get('/{id}',      \ParkingResource::class . ':get');
-        $this->put('/{id}',      \ParkingResource::class . ':update');
-    });
+        $this->put('/{id}',      \ParkingResource::class . ':update'); //?changedata=true (Editar Vehiculo y Cochera)
+    })/*->add(Midelware)*/;
 
     $app->group('/user', function(){ //ok
         $this->get('/{id}',      \UserResource::class . ':get');
-        $this->get('',           \UserResource::class . ':find');
+        $this->get('',           \UserResource::class . ':find'); //?includeinactive=false (Traer Todos los usuarios incluyendo inactivos)
         $this->put('/{id}',      \UserResource::class . ':update');
         $this->delete('/{id}',   \UserResource::class . ':delete');
-    });
+    })/*->add(Midelware)*/;
 
     $app->group('/session', function(){ //ok
         $this->post('',          \SessionResource::class . ':create');
-    });
-
-    /*->add(Midelware)*/
+    })/*->add(Midelware)*/;
 
     $app->run();
 ?>
