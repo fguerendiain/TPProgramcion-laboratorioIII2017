@@ -36,13 +36,11 @@
                 return $resp->withStatus(404);
             }else{
                 $data = $req->getParsedBody();
-                $googleid = $data['googleid'];
-                $email = $data['email'];
                 $displayname = $data['displayname'];
                 $avatar = $data['avatar'];
                 $active = strtolower($data['active']) == 'true';
                 $admin = strtolower($data['admin']) == 'true';
-                $updateduser = UserDal::update($id, $googleid, $email, $displayname, $avatar, $active, $admin);
+                $updateduser = UserDal::update($id, $displayname, $avatar, $active, $admin);
                 return $resp->getBody()->write(json_encode($updateduser));
             }
         }

@@ -17,5 +17,12 @@
             return $session;
         }
 
+
+        public static function getIdByToken($token){
+            $query = "select id,token,owner,intime from session where token = ? and deleted = false";
+            $params = [$token];
+            $session = DalTools::queryForOne($query,$params);
+            return $session;
+        }
     }
 ?>

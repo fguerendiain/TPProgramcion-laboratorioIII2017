@@ -3,6 +3,13 @@
 
     class UserDal{
 
+        public static function create($googleid, $email, $displayname, $avatar){
+            $query = "insert into users (googleid,email,displayname,avatar) values (?,?,?,?)";
+            $params = [$googleid, $email, $displayname, $avatar];
+            $createdUserId = DalTools::queryForOne($query,$params);
+            return UserDal::get($createdUserId);
+        }
+
         public static function get($id){
             $query = "select id,googleid,email,displayname,avatar,active,admin from users where id = ? and deleted = false";
             $params = [$id];
@@ -32,12 +39,20 @@
             return;
         }
 
-        public static function update($id, $googleid, $email, $displayname, $avatar, $active, $admin){
-            $query = "update users set googleid = ?, email = ?, displayname = ?, avatar = ?, active = ?, admin = ? where id = ?";
-            $params = [$googleid, $email, $displayname, $avatar, $active, $admin, $id];
+        public static function update($id, $displayname, $avatar, $active, $admin){
+            $query = "update users set displayname = ?, avatar = ?, active = ?, admin = ? where id = ?";
+            $params = [$displayname, $avatar, $active, $admin, $id];
             DalTools::query($query, $params);
             return UserDal::get($id);
         }
+
+        public static function findByGoogleAndMail($googleid, $email){
+            $query = "select id from users where googleid = ? and email = ? and deleted = false";
+            $params = [$googleid, $email];
+            $user = DalTools::queryForOne($query, $params);
+            return $user;
+        }
+
 
     }
 ?>
