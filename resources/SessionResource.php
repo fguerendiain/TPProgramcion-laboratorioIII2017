@@ -19,32 +19,6 @@
                 return $session;
             }
             return "El usuario no existe";
-
         }
-
-/*        public static function validateSessionToken($token){
-            $validSession = SessionDal::getIdByToken($token);
-            if($validSession !== NULL){
-                $resp = TRUE;
-                if(JWTHandler::verifyJWTToken($token)){
-                    $resp = TRUE;
-                }else{
-                    $resp = FALSE;
-                }
-            }else{
-                $resp = FALSE;
-            }
-            return $resp;
-        }
-
-        public static function validateUser($googleid,$email,$displayname,$avatar){
-            $id = UserDal::findByGoogleAndMail($googleid, $email);
-            if($id !== NULL){
-                return $id['id'];
-            }else{
-                $id = UserDal::create($googleid,$email,$displayname,$avatar);
-                return $id['id'];
-            }
-        }*/
     }
 ?>

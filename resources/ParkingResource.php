@@ -21,7 +21,7 @@
             $brand = $data['brand'];
             $vehicle = ParkingDal::getVehicle($license, $alien, $colour, $model, $brand);
             $place = $data['place'];
-            $inuser = $data['inuser'];
+            $inuser = $data['inuser']; //usar session para tomar el usuario activo
             $intime = time();
             $createdParking = ParkingDal::create($place, $vehicle, $inuser, $intime);
             return $resp->getBody()->write(json_encode($createdParking));
@@ -57,7 +57,7 @@
                     $updatedParking = ParkingDal::updateData($id, $vehicle, $place);
                     return $resp->getBody()->write(json_encode($updatedParking));
                 }else{
-                    $outuser = $data['outuser'];
+                    $outuser = $data['outuser']; //usar session para tomar el usuario activo
                     $intime = $parking['intime'];
                     $outtime = time();
                     $price = ParkingDal::setPrice($intime,$outtime);
