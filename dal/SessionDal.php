@@ -1,11 +1,14 @@
 <?php
     require_once dirname(__FILE__)."/../libs/DalTools.php";
+    require_once dirname(__FILE__)."/../libs/JWTHandler.php";
 
     class SessionDal{
 
-        public static function create($token, $owner, $intime){
+        public static function create($existingUser, $intime){
+
+            $token = JWTHandler::createJWTToken($existingUser);
             $query = "insert into session (token, owner, intime) values (?,?,?)";
-            $params = [$token, $owner, $intime];
+            $params = [$token, $existingUser['id'], $intime];
             $createdSessionId = DalTools::query($query,$params);
             return SessionDal::get($createdSessionId);
         }
@@ -26,3 +29,4 @@
         }
     }
 ?>
+

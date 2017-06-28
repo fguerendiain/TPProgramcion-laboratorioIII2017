@@ -49,6 +49,7 @@
         $this->get('',           \UserResource::class . ':find'); //?includeinactive=false (Traer Todos los usuarios incluyendo inactivos)
         $this->put('/{id}',      \UserResource::class . ':update');
         $this->delete('/{id}',   \UserResource::class . ':delete');
+        $this->post('',          \UserResource::class . ':create');
     })/*->add(Midelware)*/;
 
     $app->group('/session', function(){ //ok

@@ -3,22 +3,22 @@
 
     class UserDal{
 
-        public static function create($googleid, $email, $displayname, $avatar){
-            $query = "insert into users (googleid,email,displayname,avatar) values (?,?,?,?)";
-            $params = [$googleid, $email, $displayname, $avatar];
-            $createdUserId = DalTools::queryForOne($query,$params);
-            return UserDal::get($createdUserId);
+        public static function create($userName,$password){
+            $query = "insert into users (userName,password) values (?,?)";
+            $params = [$userName,$password];
+            $createdUser = DalTools::query($query,$params);
+            return UserDal::get($createdUser);
         }
 
         public static function get($id){
-            $query = "select id,googleid,email,displayname,avatar,active,admin from users where id = ? and deleted = false";
+            $query = "select id, username, password, active, admin from users where id = ? and deleted = false";
             $params = [$id];
             $user = DalTools::queryForOne($query,$params);
             return $user;
-        }
+        } 
 
         public static function findAll($active=NULL){
-            $query = "select id,googleid,email,displayname,avatar,active,admin from users where deleted = false";
+            $query = "select id, username, password, active, admin from users where deleted = false";
 
             if ($active !== NULL){
                 $query.= " and active = ";
@@ -39,20 +39,22 @@
             return;
         }
 
-        public static function update($id, $displayname, $avatar, $active, $admin){
-            $query = "update users set displayname = ?, avatar = ?, active = ?, admin = ? where id = ?";
-            $params = [$displayname, $avatar, $active, $admin, $id];
+        public static function update($id, $userName, $password, $active, $admin){
+            $query = "update users set username = ?, password = ?, active = ?, admin = ? where id = ?";
+            $params = [$userName, $password, $active, $admin, $id];
             DalTools::query($query, $params);
             return UserDal::get($id);
         }
 
-        public static function findByGoogleAndMail($googleid, $email){
-            $query = "select id from users where googleid = ? and email = ? and deleted = false";
-            $params = [$googleid, $email];
-            $user = DalTools::queryForOne($query, $params);
-            return $user;
+        public static function getIdByNameAndPassword($userName, $password){
+            $query = "select id, username, password, active, admin from users where userName = ? and password = ? and deleted = false";
+            $params = [$userName, $password];
+            $existingUser = DalTools::queryForOne($query,$params);
+            if($existingUser !== NULL){
+                return $existingUser;
+            }
+            return $NULL;
         }
-
 
     }
 ?>

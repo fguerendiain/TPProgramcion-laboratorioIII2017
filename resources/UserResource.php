@@ -7,9 +7,18 @@
 
     class UserResource{
 
+        public static function create($req, $resp){
+            $data = $req->getParsedBody();
+            $userName = $data['username'];
+            $password = $data['password'];
+            $createdUser = UserDal::create($userName, $password);
+            return $resp->getBody()->write(json_encode($createdUser));
+        }
+
+
         public static function get($req, $resp){
             $id = $req->getAttribute("id");
-            $user = UserDal::get($id);
+            $user = UserDal::get($id); 
             if ($user==NULL){
                 return $resp->withStatus(404);
             }else{
@@ -36,11 +45,11 @@
                 return $resp->withStatus(404);
             }else{
                 $data = $req->getParsedBody();
-                $displayname = $data['displayname'];
-                $avatar = $data['avatar'];
+                $userName = $data['usarname'];
+                $password = $data['password'];
                 $active = strtolower($data['active']) == 'true';
                 $admin = strtolower($data['admin']) == 'true';
-                $updateduser = UserDal::update($id, $displayname, $avatar, $active, $admin);
+                $updateduser = UserDal::update($id, $userName, $password, $active, $admin);
                 return $resp->getBody()->write(json_encode($updateduser));
             }
         }

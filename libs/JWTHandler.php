@@ -1,15 +1,14 @@
 <?php
+    
+    require_once dirname(__FILE__)."/../vendor/autoload.php";
     use \Firebase\JWT\JWT;
-    define("KEY",json_decode(file_get_contents(dirname(__FILE__)."/../config.json"))->JWT->passKey);
-    define("ENCRYPTION",json_decode(file_get_contents(dirname(__FILE__)."/../config.json"))->JWT->encryption);
 
     class JWTHandler{
 
-
         public static function createJWTToken($session){
-//            $config = json_decode(file_get_contents(dirname(__FILE__)."/../config.json"));
-//            $key = $config->JWT->passKey;
-//            $encryption = $config->JWT->encryption;
+            $config = json_decode(file_get_contents(dirname(__FILE__)."/../config.json"));
+            $key = $config->JWT->passKey;
+            $encryption = $config->JWT->encryption;
 
             $now = time();
             $payLoad = array(
@@ -18,27 +17,25 @@
                 'data' => $session,
                 );
 
-            $token = JWT::encode(
-                $payLoad,
-                self::KEY,
-                self::ENCRYPTION
-                ); 
+            $token = JWT::encode($payLoad, $key, $encryption);
+
             return $token;
         }
 
         public static function verifyJWTToken($session){
+            $config = json_decode(file_get_contents(dirname(__FILE__)."/../config.json"));
+            $key = $config->JWT->passKey;
+            $encryption = $config->JWT->encryption;
 
-            $decoded = JWT::decode(
-                $session,
-                self::KEY,
-                self::ENCRYPTION
-            );
+            $decoded = JWT::decode($session, $key, $encryption);
 
             if($decoded){
                 return $session;
             }
-            return false;
+            return NULL;
         }
 
     }
+
+
 ?>
