@@ -45,7 +45,7 @@
                 return $resp->withStatus(404);
             }else{
                 $data = $req->getParsedBody();
-                $userName = $data['usarname'];
+                $userName = $data['username'];
                 $password = $data['password'];
                 $active = strtolower($data['active']) == 'true';
                 $admin = strtolower($data['admin']) == 'true';

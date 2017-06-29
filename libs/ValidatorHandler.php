@@ -72,7 +72,9 @@
             }
         }
 
-
+        /*
+         *  Verifica que si la seccion existe, esta vigente o vencida
+         */
         public static function ValidateSession($token)
         {
             $validSession = SessionDal::Update($token);
@@ -80,6 +82,22 @@
         }
 
 
+        /*
+         * Valida si los permisos del usuario
+        */
+        public static function ValidateUserPermission($token)
+        {
+            $validSession = SessionDal::Update($token);
+            if($validSession !== NULL && $validSession !== true)
+            {
+                $user = UserDal::get($validSession['owner']);
+                if($user['admin'] == 1)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
 ?>

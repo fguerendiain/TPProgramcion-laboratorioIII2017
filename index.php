@@ -27,47 +27,66 @@
     });
 
     $app->group('/place', function () {
-        $this->get('',           \PlaceResource::class . ':find'); //?includeinactive=false (Traer Todas las cocheras incluyendo inactivas)
-        $this->post('',          \PlaceResource::class . ':create')->add(\RequestValidator::class . ':PlaceRequestValues');
-        $this->get('/{id}',      \PlaceResource::class . ':get');
-        $this->put('/{id}',      \PlaceResource::class . ':update')->add(\RequestValidator::class . ':PlaceRequestValues');
-        $this->delete('/{id}',   \PlaceResource::class . ':delete');
-    })->add(\RequestValidator::class . ':SessionTokenRequestValue');
+        $this->get('',                     \PlaceResource::class . ':find'); //?includeinactive=false (Traer Todas las cocheras incluyendo inactivas)
+        $this->post('',                    \PlaceResource::class . ':create')
+                ->add(\RequestValidator::class . ':ValidateUserPermissions')
+                ->add(\RequestValidator::class . ':PlaceRequestValues');
+        $this->get('/{id}',                \PlaceResource::class . ':get');
+        $this->put('/{id}',                \PlaceResource::class . ':update')
+                ->add(\RequestValidator::class . ':ValidateUserPermissions')
+                ->add(\RequestValidator::class . ':PlaceRequestValues');
+        $this->delete('/{id}',             \PlaceResource::class . ':delete')
+                ->add(\RequestValidator::class . ':ValidateUserPermissions');
+    })
+    ->add(\RequestValidator::class . ':SessionTokenRequestValue');
 
 
     $app->group('/vehicle', function(){
-        $this->get('',           \VehicleResource::class . ':find');
-        $this->get('/{id}',      \VehicleResource::class . ':get');
-    })->add(\RequestValidator::class . ':SessionTokenRequestValue');
+        $this->get('',                      \VehicleResource::class . ':find');
+        $this->get('/{id}',                 \VehicleResource::class . ':get');
+    })
+    ->add(\RequestValidator::class . ':SessionTokenRequestValue');
 
 
     $app->group('/parking', function(){
-        $this->get('',           \ParkingResource::class . ':find');
-        $this->post('',          \ParkingResource::class . ':create')->add(\RequestValidator::class . ':ParkingRequestValues');
-        $this->get('/{id}',      \ParkingResource::class . ':get');
-        $this->put('/{id}',      \ParkingResource::class . ':update')->add(\RequestValidator::class . ':ParkingRequestValues'); //?changedata=true (Editar Vehiculo y Cochera)
-    })->add(\RequestValidator::class . ':SessionTokenRequestValue');
+        $this->get('',                      \ParkingResource::class . ':find');
+        $this->post('',                     \ParkingResource::class . ':create')
+                ->add(\RequestValidator::class . ':ParkingRequestValues');
+        $this->get('/{id}',                 \ParkingResource::class . ':get');
+        $this->put('/{id}',                 \ParkingResource::class . ':update') //?changedata=true (Editar Vehiculo y Cochera)
+                ->add(\RequestValidator::class . ':ParkingRequestValues'); 
+    })
+    ->add(\RequestValidator::class . ':SessionTokenRequestValue');
 
 
     $app->group('/user', function(){
-        $this->get('/{id}',      \UserResource::class . ':get');
-        $this->get('',           \UserResource::class . ':find'); //?includeinactive=false (Traer Todos los usuarios incluyendo inactivos)
-        $this->put('/{id}',      \UserResource::class . ':update')->add(\RequestValidator::class . ':SessionUserRequestValues');
-        $this->delete('/{id}',   \UserResource::class . ':delete');
-        $this->post('',          \UserResource::class . ':create')->add(\RequestValidator::class . ':SessionUserRequestValues');
-    })->add(\RequestValidator::class . ':SessionTokenRequestValue');
+        $this->get('/{id}',                 \UserResource::class . ':get');
+        $this->get('',                      \UserResource::class . ':find'); //?includeinactive=false (Traer Todos los usuarios incluyendo inactivos)
+        $this->put('/{id}',                 \UserResource::class . ':update')
+                ->add(\RequestValidator::class . ':ValidateUserPermissions')
+                ->add(\RequestValidator::class . ':SessionUserRequestValues');
+        $this->delete('/{id}',              \UserResource::class . ':delete')
+                ->add(\RequestValidator::class . ':ValidateUserPermissions');
+        $this->post('',                     \UserResource::class . ':create')
+                ->add(\RequestValidator::class . ':ValidateUserPermissions')
+                ->add(\RequestValidator::class . ':SessionUserRequestValues');
+    })
+    ->add(\RequestValidator::class . ':SessionTokenRequestValue');
 
 
     $app->group('/session', function(){
-        $this->post('',          \SessionResource::class . ':create')->add(\RequestValidator::class . ':SessionUserRequestValues');
+        $this->post('',                    \SessionResource::class . ':create')
+                ->add(\RequestValidator::class . ':SessionUserRequestValues');
     });
 
     $app->group('/report', function(){
-        $this->get('/userlogin/{id}',      \ReportResource::class . ':get'); //días y horarios que se logearon
-        $this->get('/useroperations/{id}',      \ReportResource::class . ':get'); //Cantidad de operaciones por cada uno
-        $this->get('/placeuse',      \ReportResource::class . ':get'); //La más y menos y las que nunca se utilizaron
-        $this->get('/parked',      \ReportResource::class . ':get'); //vehiculos en playa
-    })->add(\RequestValidator::class . ':SessionTokenRequestValue');
+        $this->get('/userlogin/{id}',       \ReportResource::class . ':reportUserLogin'); //días y horarios que se logearon
+        $this->get('/useroperations/{id}',  \ReportResource::class . ':reportUserOperations'); //Cantidad de operaciones por cada uno
+        $this->get('/placeuse',             \ReportResource::class . ':reportPlaceUse'); //La más y menos y las que nunca se utilizaron
+        $this->get('/parked',               \ReportResource::class . ':reportParked'); //vehiculos en playa
+    })
+    ->add(\RequestValidator::class . ':SessionTokenRequestValue')
+    ->add(\RequestValidator::class . ':ValidateUserPermissions');
 
 
     $app->run();

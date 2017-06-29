@@ -99,8 +99,19 @@
             }
 
             return $resp;
-            
         }
 
+
+        public static function ValidateUserPermissions($req, $resp, $next){
+            $token = $req->getHeader('token');
+            $validatedData = ValidatorHandler::ValidateUserPermission($token[0]);
+            if($validatedData !== NULL){
+                if($validatedData !== false){
+                    return $next($req, $resp);
+                }
+            }
+            $resp->getBody()->write(json_encode(['mensaje'=>"El usuario no tiene permisos"]));
+            return $resp;
+        }
     }
 ?>
