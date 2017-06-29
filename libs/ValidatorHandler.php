@@ -1,16 +1,17 @@
 <?php
 
-    require_once dirname(__FILE__)."/SessionDal.php";
     require_once dirname(__FILE__)."/JWTHandler.php";
+    require_once dirname(__FILE__)."/../dal/SessionDal.php";
+    require_once dirname(__FILE__)."/../dal/UserDal.php";
 
 
     class ValidatorHandler{
 
         /*
-         *  Esta regla es para permitir usuarios de 4 hasta 28 caracteres de longitud, alfanuméricos y permitir guiones bajos.
+         *  Esta regla es para permitir solo letras y espacios.
          */
-        public static function ValidateUserCredentials(){
-            $expression = '/^[a-z\\d_]{4,28}$/i';
+        public static function ValidateOnlyLetters($data){
+            $expression = '/[a-zA-Z]/';
             if (preg_match($expression,$data)){
                 return true;
             }else{
@@ -18,6 +19,18 @@
             }
         }
 
+
+        /*
+         *  Esta regla es para permitir credenciales de 8 hasta 10 caracteres de longitud, alfanuméricos y permitir guiones bajos.
+         */
+        public static function ValidateUserCredentials($data){
+            $expression = '/^[a-z\\d_]{4,28}$/i';
+            if (preg_match($expression,$data)){
+                return true;
+            }else{
+                return false;
+            }
+        }
 
         /*
          *  Comprueba si todos caracteres del string son dígitos.
@@ -62,7 +75,8 @@
 
         public static function ValidateSession($token)
         {
-
+            $validSession = SessionDal::Update($token);
+            return $validSession;
         }
 
 

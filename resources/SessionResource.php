@@ -15,10 +15,10 @@
             $intime = time();
             $existingUser = UserDal::getIdByNameAndPassword($userName,$password);
             if($existingUser !== NULL){
-                $session = SessionDal::create($existingUser, $intime);
-                return $session;
+                $newSession = SessionDal::create($existingUser, $intime);
+                return $resp->getBody()->write(json_encode($newSession));
             }
-            return "El usuario no existe";
+            return $resp->getBody()->write(json_encode(['error'=>"El usuario no existe"]));
         }
     }
 ?>

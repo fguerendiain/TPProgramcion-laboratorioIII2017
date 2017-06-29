@@ -9,7 +9,6 @@
 
         public static function find($req, $resp){
             $includeInactive = $req->getQueryParams()['includeinactive'];
-
             $active = TRUE;
             if ($includeInactive){
                 $active = NULL;
@@ -60,7 +59,7 @@
                 return $resp->withStatus(404);
             }else{
                 PlaceDal::delete($id);
-                return $resp->getBody()->write(json_encode("Se elimino el indice ".$id));
+                return $resp->getBody()->write(json_encode(['mensaje'=>"Se elimino el indice ".$id]));
             }            
         }
 

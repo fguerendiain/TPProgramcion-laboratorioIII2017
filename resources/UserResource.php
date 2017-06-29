@@ -61,7 +61,7 @@
                 return $resp->withStatus(404);
             }else{
                 UserDal::delete($id);
-                return $resp->getBody()->write(json_encode("Se elimino el indice ".$id));
+                return $resp->getBody()->write(json_encode(['mensaje'=>"Se elimino el indice ".$id]));
             }            
         }
 

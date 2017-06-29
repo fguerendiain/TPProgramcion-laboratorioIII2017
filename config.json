@@ -14,7 +14,8 @@
     "time":{
         "hour":3600,
         "halfStay":43200,
-        "stay":86400
+        "stay":86400,
+        "sessionExpireTimeOut":3600
     },
     "JWT":{
         "passKey":"qwer@013&",

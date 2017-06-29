@@ -6,7 +6,7 @@
     class ParkingDal{
 
         public static function findAll(){
-            $query = "select id, place, vehicle, inuser, outuser, intime, outtime, price from parking";
+            $query = "select p.id, p.place, v.license, v.alien, v.colour, v.model, v.brand, p.inuser, p.outuser, p.intime, p.outtime, p.price from parking p left join vehicle v on p.vehicle = v.id";//"select id, place, vehicle, inuser, outuser, intime, outtime, price from parking";
             $parkings = DalTools::query($query,null);
             return $parkings;
         }
@@ -19,7 +19,7 @@
         }
 
         public static function get($id){
-            $query = "select id, place, vehicle, inuser, outuser, intime, outtime, price from parking where id = ?";
+            $query = "select p.id, p.place, v.license, v.alien, v.colour, v.model, v.brand, p.inuser, p.outuser, p.intime, p.outtime, p.price from parking p left join vehicle v on p.vehicle = v.id where p.id = ?";
             $params = [$id];
             $parking = DalTools::queryForOne($query,$params);
             return $parking;

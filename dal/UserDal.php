@@ -4,7 +4,7 @@
     class UserDal{
 
         public static function create($userName,$password){
-            $query = "insert into users (userName,password) values (?,?)";
+            $query = "insert into users (username,password) values (?,?)";
             $params = [$userName,$password];
             $createdUser = DalTools::query($query,$params);
             return UserDal::get($createdUser);

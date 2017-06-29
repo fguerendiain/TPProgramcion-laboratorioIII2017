@@ -4,6 +4,7 @@
 /*****************************************/
 
     require_once dirname(__FILE__)."/../dal/ParkingDal.php";
+    require_once dirname(__FILE__)."/../libs/ValidatorHandler.php";
 
     class ParkingResource{
 
@@ -13,6 +14,10 @@
         }
 
         public static function create($req, $resp){
+
+            $token = $req->getHeader('token');
+            $session = ValidatorHandler::ValidateSession($token[0]);
+
             $data = $req->getParsedBody();
             $license = $data['license'];
             $alien = strtolower($data['alien']) == 'true';
@@ -21,7 +26,7 @@
             $brand = $data['brand'];
             $vehicle = ParkingDal::getVehicle($license, $alien, $colour, $model, $brand);
             $place = $data['place'];
-            $inuser = $data['inuser']; //usar session para tomar el usuario activo
+            $inuser = $session['owner'];
             $intime = time();
             $createdParking = ParkingDal::create($place, $vehicle, $inuser, $intime);
             return $resp->getBody()->write(json_encode($createdParking));
@@ -57,7 +62,11 @@
                     $updatedParking = ParkingDal::updateData($id, $vehicle, $place);
                     return $resp->getBody()->write(json_encode($updatedParking));
                 }else{
-                    $outuser = $data['outuser']; //usar session para tomar el usuario activo
+
+                    $token = $req->getHeader('token');
+                    $session = ValidatorHandler::ValidateSession($token[0]);
+
+                    $outuser = $session['owner'];
                     $intime = $parking['intime'];
                     $outtime = time();
                     $price = ParkingDal::setPrice($intime,$outtime);

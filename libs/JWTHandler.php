@@ -5,16 +5,14 @@
 
     class JWTHandler{
 
-        public static function createJWTToken($session){
+        public static function createJWTToken($session, $intime){
             $config = json_decode(file_get_contents(dirname(__FILE__)."/../config.json"));
             $key = $config->JWT->passKey;
             $encryption = $config->JWT->encryption;
 
-            $now = time();
             $payLoad = array(
-                'iat' => $now,
-                'exp' => $now + 10800,
-                'data' => $session,
+                'iat' => $intime,
+                'data' => $session
                 );
 
             $token = JWT::encode($payLoad, $key, $encryption);
@@ -25,12 +23,11 @@
         public static function verifyJWTToken($session){
             $config = json_decode(file_get_contents(dirname(__FILE__)."/../config.json"));
             $key = $config->JWT->passKey;
-            $encryption = $config->JWT->encryption;
+            $encryption = array($config->JWT->encryption,'HS384');
 
             $decoded = JWT::decode($session, $key, $encryption);
-
             if($decoded){
-                return $session;
+                return $decoded;
             }
             return NULL;
         }
