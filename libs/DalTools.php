@@ -3,13 +3,13 @@
 
     class DalTools{
 
-        public static function query($query, $params){
+        public static function query($query, $params=[]){
             $dbConn = PDOHandler::Connect();
             $results = $dbConn->query($query, $params);
             return $results;
         }
 
-        public static function queryForOne($query, $params){
+        public static function queryForOne($query, $params=[]){
             $dbConn = PDOHandler::Connect();
             $results = $dbConn->query($query, $params);
 

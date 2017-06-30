@@ -1,10 +1,10 @@
 {
     "db":{
-        "host":"localhost",
+        "host":"mysql.hostinger.com.ar",
         "port":3306,
-        "db":"parkhour",
-        "user":"root",
-        "password":""
+        "db":"u613077149_park",
+        "user":"u613077149_root",
+        "password":"parkhour1234"
     },
     "price":{
         "hour":1000,

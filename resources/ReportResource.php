@@ -22,12 +22,14 @@
 
 
         public static function reportPlaceUse($req, $resp){
-            
+            $placeMaxLessAndNever = ReportDal::reportPlaceUse();
+            return $resp->getBody()->write(json_encode($placeMaxLessAndNever));
         } 
 
 
         public static function reportParked($req, $resp){
-
+            $parkedVehicles = ReportDal::reportParked();
+            return $resp->getBody()->write(json_encode($parkedVehicles));
         } 
     }
 ?>
