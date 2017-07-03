@@ -20,6 +20,10 @@
         }
 
         public static function create($name, $floor){
+            $existingPlace = PlaceDal::getByNameAndFloor($name, $floor);
+            if($existingPlace !== null){
+                return $existingPlace;
+            }
             $query = "insert into place (name, floor) values (?,?)";
             $params = [$name, $floor];
             $createdPlaceId = DalTools::query($query,$params);
@@ -29,6 +33,13 @@
         public static function get($id){
             $query = "select id,name,floor,handicap,active from place where id = ? and deleted = false";
             $params = [$id];
+            $place = DalTools::queryForOne($query,$params);
+            return $place;
+        }
+
+        public static function getByNameAndFloor($name, $floor){
+            $query = "select id,name,floor,handicap,active from place where name = ? and floor = ? and deleted = false";
+            $params = [$name, $floor];
             $place = DalTools::queryForOne($query,$params);
             return $place;
         }

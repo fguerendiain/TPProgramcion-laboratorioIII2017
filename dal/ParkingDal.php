@@ -70,7 +70,12 @@
             }
         }
 
-
+        public static function takenPlace($id){
+            $query = "select id from parking where place = ?";
+            $params = [$id];
+            $parking = DalTools::queryForOne($query,$params);
+            return $parking;
+        }
 
 
         /*
