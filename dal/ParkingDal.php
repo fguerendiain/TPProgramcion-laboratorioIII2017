@@ -6,7 +6,7 @@
     class ParkingDal{
 
         public static function findAll(){
-            $query = "select p.id, p.place, v.license, v.alien, v.colour, v.model, v.brand, p.inuser, p.outuser, p.intime, p.outtime, p.price from parking p left join vehicle v on p.vehicle = v.id";//"select id, place, vehicle, inuser, outuser, intime, outtime, price from parking";
+            $query = "select p.id parkingid, p.place placeid, pl.name placename, pl.floor,p.vehicle vehicleid, v.license, v.alien, v.colour, v.model, v.brand, p.inuser, p.outuser, p.intime, p.outtime, p.price from parking p left join vehicle v on p.vehicle = v.id left join place pl on p.place = pl.id";
             $parkings = DalTools::query($query,null);
             return $parkings;
         }
@@ -19,7 +19,7 @@
         }
 
         public static function get($id){
-            $query = "select p.id, p.place, v.license, v.alien, v.colour, v.model, v.brand, p.inuser, p.outuser, p.intime, p.outtime, p.price from parking p left join vehicle v on p.vehicle = v.id where p.id = ?";
+            $query = "select p.id parkingid, p.place placeid, pl.name placename, pl.floor,p.vehicle vehicleid, v.license, v.alien, v.colour, v.model, v.brand, p.inuser, p.outuser, p.intime, p.outtime, p.price from parking p left join vehicle v on p.vehicle = v.id left join place pl on p.place = pl.id where p.id = ?";
             $params = [$id];
             $parking = DalTools::queryForOne($query,$params);
             return $parking;
@@ -69,6 +69,8 @@
                 return ParkingDal::getVehicle($license, $alien, $colour, $model, $brand); //Uso recursividad por que luego del incert PDO no me devuelve bien el indice
             }
         }
+
+
 
 
         /*

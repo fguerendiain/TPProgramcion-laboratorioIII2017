@@ -13,9 +13,13 @@
             if ($includeInactive){
                 $active = NULL;
             }
-
             $places = PlaceDal::findAll($active);
-            return $resp->getBody()->write(json_encode($places));
+            if($places == NULL){
+                return $resp->withStatus(400); //error sintaxis
+            }else{
+                return $resp->getBody()->write(json_encode($places));
+            }
+            return $resp->withStatus(404); //no encontrado
         }
 
         public static function create($req, $resp){
@@ -23,14 +27,19 @@
             $name = $data['name'];
             $floor = $data['floor'];
             $createdPlace = PlaceDal::create($name, $floor);
-            return $resp->getBody()->write(json_encode($createdPlace));
+            if($createdPlace == NULL){
+                return $resp->withStatus(400); //error sintaxis
+            }else{
+                return $resp->getBody()->write(json_encode($createdPlace));
+            }
+            return $resp->withStatus(404); //no encontrado
         }
 
         public static function update($req, $resp){
             $id = $req->getAttribute("id");
             $place = PlaceDal::get($id);
             if ($place==NULL){
-                return $resp->withStatus(404);
+                return $resp->withStatus(400); //error sintaxis
             }else{
                 $data = $req->getParsedBody();
                 $name = $data['name'];
@@ -38,7 +47,12 @@
                 $handicap = strtolower($data['handicap']) == 'true';
                 $active = strtolower($data['active']) == 'true';
                 $updatedPlace = PlaceDal::update($id, $name, $floor, $handicap, $active);
-                return $resp->getBody()->write(json_encode($updatedPlace));
+                if($updatedPlace == NULL){
+                    return $resp->withStatus(400); //error sintaxis
+                }else{
+                    return $resp->getBody()->write(json_encode($updatedPlace));
+                }
+                return $resp->withStatus(404); //no encontrado
             }
         }
 
@@ -46,22 +60,27 @@
             $id = $req->getAttribute("id");
             $place = PlaceDal::get($id);
             if ($place==NULL){
-                return $resp->withStatus(404);
+                return $resp->withStatus(400); //error sintaxis
             }else{
                 return $resp->getBody()->write(json_encode($place));
             }
+            return $resp->withStatus(404); //no encontrado
         }
 
         public static function delete($req, $resp){
             $id = $req->getAttribute("id");
             $place = PlaceDal::get($id);
-            if ($place==NULL){
-                return $resp->withStatus(404);
+            if($places == NULL){
+                return $resp->withStatus(400); //error sintaxis
             }else{
-                PlaceDal::delete($id);
-                return $resp->getBody()->write(json_encode(['mensaje'=>"Se elimino el indice ".$id]));
-            }            
+                $deletedPlace = PlaceDal::delete($id);
+                if($deletedPlace == NULL){
+                    return $resp->withStatus(400); //error sintaxis
+                }else{
+                    return $resp->getBody()->write(json_encode($places));
+                }
+                return $resp->withStatus(404); //no encontrado
+            }
         }
-
     }
 ?>

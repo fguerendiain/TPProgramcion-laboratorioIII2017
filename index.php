@@ -21,7 +21,7 @@
         $response = $next($request, $response);
         return $response
                 ->withHeader('Access-Control-Allow-Origin','*')
-                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type. Accept, Origin, Authorization')
+                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type. Accept, Origin, Authorization, token')
                 ->withHeader('Access-Control-Allow-Methods','GET, POST, PUT, DELETE, OPTIONS')
                 ->withHeader('Content-Type','application/json; charset=utf-8');
     });
@@ -75,18 +75,21 @@
 
 
     $app->group('/session', function(){
-        $this->post('',                    \SessionResource::class . ':create')
-                ->add(\RequestValidator::class . ':SessionUserRequestValues');
+        $this->post('',                    \SessionResource::class . ':create');
+        $this->get('',                     \SessionResource::class . ':get')
+                ->add(\RequestValidator::class . ':SessionTokenRequestValue');
     });
 
     $app->group('/report', function(){
-        $this->get('/userlogin/{id}',       \ReportResource::class . ':reportUserLogin'); //días y horarios que se logearon
-        $this->get('/useroperations/{id}',  \ReportResource::class . ':reportUserOperations'); //Cantidad de operaciones por cada uno
-        $this->get('/placeuse',             \ReportResource::class . ':reportPlaceUse'); //La más y menos y las que nunca se utilizaron
+        $this->get('/userlogin/{id}',       \ReportResource::class . ':reportUserLogin') //días y horarios que se logearon
+                ->add(\RequestValidator::class . ':ValidateUserPermissions');
+        $this->get('/useroperations/{id}',  \ReportResource::class . ':reportUserOperations') //Cantidad de operaciones por cada uno
+                ->add(\RequestValidator::class . ':ValidateUserPermissions');
+        $this->get('/placeuse',             \ReportResource::class . ':reportPlaceUse') //La más y menos y las que nunca se utilizaron
+                ->add(\RequestValidator::class . ':ValidateUserPermissions');
         $this->get('/parked',               \ReportResource::class . ':reportParked'); //vehiculos en playa
     })
-    ->add(\RequestValidator::class . ':SessionTokenRequestValue')
-    ->add(\RequestValidator::class . ':ValidateUserPermissions');
+    ->add(\RequestValidator::class . ':SessionTokenRequestValue');
 
 
     $app->run();

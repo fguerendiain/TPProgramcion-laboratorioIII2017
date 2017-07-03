@@ -21,7 +21,7 @@
         public static function create($req, $resp){
 
             $token = $req->getHeader('token');
-            $session = ValidatorHandler::ValidateSession($token);
+            $session = ValidatorHandler::ValidateSession($token[0]);
 
             $data = $req->getParsedBody();
             $license = $data['license'];
@@ -73,21 +73,21 @@
                     $vehicle = ParkingDal::getVehicle($license, $alien, $colour, $model, $brand);
                     $place = $data['place'];
                     $updatedParking = ParkingDal::updateData($id, $vehicle, $place);
-                    if($updatedParking !== NULL){
+                    if($updatedParking == NULL){
                         return $resp->getBody()->write(json_encode($updatedParking));
                     }
                     return $resp->withStatus(400); //error sintaxis
                 }else{
 
                     $token = $req->getHeader('token');
-                    $session = ValidatorHandler::ValidateSession($token);
+                    $session = ValidatorHandler::ValidateSession($token[0]);
 
                     $outuser = $session['owner'];
                     $intime = $parking['intime'];
                     $outtime = time();
                     $price = ParkingDal::setPrice($intime,$outtime);
                     $updatedParking = ParkingDal::update($id, $outuser, $outtime, $price);
-                    if($updatedParking !== NULL){
+                    if($updatedParking == NULL){
                         return $resp->getBody()->write(json_encode($updatedParking));
                     }
                     return $resp->withStatus(400); //error sintaxis

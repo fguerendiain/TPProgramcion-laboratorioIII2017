@@ -9,17 +9,23 @@
 
         public static function find($req, $resp){
             $vehicles = VehicleDal::findAll();
-            return $resp->getBody()->write(json_encode($vehicles));
+            if ($vehicles==NULL){
+                return $resp->withStatus(400); //error sintaxis
+            }else{
+                return $resp->getBody()->write(json_encode($vehicles));
+            }
+            return $resp->withStatus(404); //no encontrado
         }
 
         public static function get($req, $resp){
             $id = $req->getAttribute("id");
             $vehicle = VehicleDal::get($id);
             if ($vehicle==NULL){
-                return $resp->withStatus(404);
+                return $resp->withStatus(400); //error sintaxis
             }else{
                 return $resp->getBody()->write(json_encode($vehicle));
             }
+            return $resp->withStatus(404); //no encontrado
         }
     }
 

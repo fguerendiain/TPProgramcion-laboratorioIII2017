@@ -24,8 +24,7 @@
             $config = json_decode(file_get_contents(dirname(__FILE__)."/../config.json"));
             $key = $config->JWT->passKey;
             $encryption = array($config->JWT->encryption,'HS384');
-
-            $decoded = JWT::decode($session, $key, $encryption);
+            $decoded = JWT::decode($session[0], $key, $encryption);
             if($decoded){
                 return $decoded;
             }
